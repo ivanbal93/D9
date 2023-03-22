@@ -1,0 +1,37 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %} 
+ 
+{% block title %}
+All latest news
+{% endblock title %}
+ 
+{% block content %}
+<br>
+<h1>All latest news</h1> 
+<h5>Ammount of news: {{ post_list|length }}</h5>
+<hr>
+{% for post in post_list%}
+    <div align="left">
+        <h2>{{ post.post_header|censor:'ipsum'|censor:'sed' }}</h2>
+        <h5>{{ post.post_datetime|date:"d.m.Y" }}</h5>
+    <h3>{{ post.post_text|truncatewords:20|censor:'ipsum'|censor:'sed' }}</h3>
+    <hr>
+    </div>
+{% endfor %}
+   {% if page_obj.has_previous %}
+       <a href="?page=1">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+   {{ page_obj.number }}
+   {% if page_obj.has_next %}
+       <a href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+{% endblock content %}
+
