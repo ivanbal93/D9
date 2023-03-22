@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+    <br>
+    <h1>Subscribe</h1>
+    <hr>
+    {% for category in categories_list %}
+        <h2> {{ category.category_name }} </h2>
+        <form action="{% url 'add_subscriber' category.id %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Subscribe</button>
+         </form>
+        <hr>    
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+<br>
+<h1>{{ post_det.post_header|censor:'ipsum'|censor:'sed' }}</h1>
+<h5>{{ post_det.post_datetime|date:"d.m.Y" }}</h5>
+<hr>
+<div align="left">
+    <h2>{{ post_det.post_text|censor:'ipsum'|censor:'sed'}}</h2>
+</div>
+<br>
+<br>
+<div align="right">
+    <h3>Post rating:
+        {% if post_det.post_rating < 0 %}
+            <font color="red">{{ post_det.post_rating }}</font>
+        {% else %}
+            <font color="green">+{{ post_det.post_rating }}</font>
+        {% endif %}
+    </h3>
+</div>
+{% endblock content %}
